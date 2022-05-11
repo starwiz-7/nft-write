@@ -6,7 +6,7 @@ import Navbar from './Components/Navbar';
 import Head from 'next/head';
 const games = () => {
   return (
-    <div className="w-full min-h-screen bg-black text-light-gray ">
+    <div className="w-full min-h-screen bg-white text-faded-black ">
       <Head>
         <title>NFT Games</title>
       </Head>

@@ -7,6 +7,13 @@ import api from '../../lib/appwrite';
 export default function ProfileCard(props) {
   const [src, setSrc] = useState();
   const { address } = useWeb3();
+  const dummy={
+    username:"cyril2019",
+    firstName:"Cyril",
+    lastName:"Kunjumon",
+    profilePic:"https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg",
+    description:"Web developer",
+    }
   const getProfilePicture = async (addr) => {
     try {
       const address = '0x8C1Bb3819E244F0868440dFc6517AFf16627613B';
@@ -24,9 +31,10 @@ export default function ProfileCard(props) {
     setSrc(`https://gradient-avatar.glitch.me/${props.address}`);
   }, []);
   return (
-    <div className="w-full flex items-center justify-center bg-gray text-white rounded-lg flex-col py-8 px-6">
-      <Avatar size="2xl" className="mb-8" src={src} />
-      <p>Address</p>
+    <div className="w-full flex items-center justify-center text-black rounded-lg flex-col py-8 px-6 drop-shadow-xl" style={{backgroundColor:'#f6dbff'}}>
+      <Avatar size="2xl" className="mb-8" src={dummy.profilePic} />
+      <p className=''><span className='text-xl font-extrabold'>{dummy.username}</span></p>
+      <p>{" ("+dummy.firstName+" "+dummy.lastName+")"}</p>
       <div className="p-2 flex items-center space-x-2">
         <p className="text-lg text-light-purple">
           {' '}
@@ -43,6 +51,7 @@ export default function ProfileCard(props) {
           }}
         />
       </div>
+      <p className='text-center'>{dummy.description}</p>
       {/* <Divider /> */}
     </div>
   );

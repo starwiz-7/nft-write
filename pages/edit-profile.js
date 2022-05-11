@@ -27,7 +27,9 @@ import {
 } from '@chakra-ui/react';
 import { FaUser } from 'react-icons/fa';
 import { useWeb3, useSwitchNetwork } from '@3rdweb/hooks';
-import api from '../lib/appwrite';
+import Navbar from './Components/Navbar';
+import Footer from './Components/Footer';
+// import api from '../lib/appwrite';
 
 export default function Component() {
   const { address } = useWeb3();
@@ -120,17 +122,19 @@ export default function Component() {
     }
   };
 
-  useEffect(() => {
-    api
-      .createSession()
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   api
+  //     .createSession()
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
   return (
-    <div className="w-full h-screen p-20">
-      <chakra.form method="POST" rounded={[null, 'md']} overflow={{ sm: 'hidden' }}>
+    <div style={{backgroundColor:'#f6dbff'}}>
+    <Navbar/>
+    <div className="w-1/2 m-auto h-screen px-20 pt-10">
+      <chakra.form method="POST" rounded={[null, 'md']} overflow={{ sm: 'hidden' }} >
         <Stack px={4} py={5} bg={useColorModeValue('white', 'gray.700')} spacing={6} p={{ sm: 6 }}>
           <SimpleGrid columns={3} spacing={6}>
             <FormControl as={GridItem} colSpan={[3, 2]}>
@@ -147,6 +151,7 @@ export default function Component() {
                   placeholder="www.example.com"
                   focusBorderColor="brand.400"
                   rounded="md"
+                  // width={'100%'}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
@@ -288,6 +293,8 @@ export default function Component() {
           </Button>
         </Box>
       </chakra.form>
+    </div>
+    <Footer/>
     </div>
   );
 }

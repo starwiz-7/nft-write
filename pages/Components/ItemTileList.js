@@ -10,6 +10,7 @@ const ItemTileList = () => {
 
   useEffect(() => {
     getListings();
+    setTimeout(()=>{setLoading(false)},3000)
   }, []);
   const getListings = async () => {
     const listing = await fetch('/api/market', {
@@ -21,7 +22,7 @@ const ItemTileList = () => {
   };
 
   return loading ? (
-    <div className="text-white w-full min-h-screen flex items-center justify-center bg-black">
+    <div className="text-black w-full min-h-screen flex items-center justify-center bg-white">
       <div className="flex flex-col items-center justify-center">
         <div className="flex items-center justify-center">
           <Spinner className="m-2 text-light-purple" />
@@ -32,7 +33,7 @@ const ItemTileList = () => {
     </div>
   ) : (
     <div className="w-full min-h-screen text-light-gray text-xs">
-      <p className="text-2xl font-bold text-light-purple">Marketplace</p>
+      <p className="text-2xl font-bold text-black">Marketplace</p>
 
       <hr className="my-2" />
       {/* list of nft */}
