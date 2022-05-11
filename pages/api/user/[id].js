@@ -16,6 +16,7 @@ export default async function mint(req, res) {
       res.status(200).json(metadata);
     })
     .catch((err) => {
+      console.log(err);
       res.status(408).json({ error: true });
     });
 }

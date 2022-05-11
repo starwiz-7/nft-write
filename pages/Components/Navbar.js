@@ -1,6 +1,6 @@
 import { AiOutlineMenu, AiOutlineCloseCircle } from 'react-icons/ai';
 import { FaEthereum } from 'react-icons/fa';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
 // import thirdweb
@@ -23,6 +23,10 @@ const Navbar = () => {
       handleAddress(address);
     }
   };
+
+  useEffect(() => {
+    console.log(address);
+  }, []);
 
   return (
     <div

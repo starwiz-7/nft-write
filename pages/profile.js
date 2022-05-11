@@ -6,13 +6,17 @@ import ProfileCard from './Components/ProfileCard';
 import { useWeb3 } from '@3rdweb/hooks';
 import Head from 'next/head';
 import Footer from './Components/Footer';
+import api from '../lib/appwrite';
+
 export default function Profile() {
   const { address } = useWeb3();
   const [loading, setLoading] = useState(true);
   const [nfts, setNFTs] = useState([]);
   const toast = useToast();
+
   useEffect(() => {
-    getMyNFT(address);
+    setLoading(false);
+    // getMyNFT(address);
   }, []);
 
   const getMyNFT = async (address) => {
@@ -42,14 +46,14 @@ export default function Profile() {
 
         {loading ? (
           <div className="text-white w-full min-h-screen flex items-center justify-center bg-black">
-          <div className="flex flex-col items-center justify-center">
-            <div className="flex items-center justify-center">
-              <Spinner className="m-2 text-light-purple" />
-              <p>{`Fetching NFT's...   `}</p>
+            <div className="flex flex-col items-center justify-center">
+              <div className="flex items-center justify-center">
+                <Spinner className="m-2 text-light-purple" />
+                <p>{`Fetching NFT's...   `}</p>
+              </div>
+              <p className="text-xs">Freshly minted/bought NFTs may take longer to appear</p>
             </div>
-            <p className="text-xs">Freshly minted/bought NFTs may take longer to appear</p>
           </div>
-        </div>
         ) : (
           <div className=" flex flex-col w-full min-h-screen bg-black">
             <div className="cover w-full h-44 bg-repeat bg-cover bg-center overflow-hidden bg-[url('https://wallpaperaccess.com/full/4785394.jpg')]"></div>
