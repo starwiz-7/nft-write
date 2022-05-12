@@ -5,9 +5,9 @@ import { useState } from 'react';
 import Link from 'next/link';
 // import thirdweb
 import { useAddressContext } from '../../context/addressContext';
-import { useMetamask, useAddress, useNetwork } from '@thirdweb-dev/react';
+import { useMetamask, useAddress, useNetwork, useChainId } from '@thirdweb-dev/react';
 const Navbar = () => {
-  // const { connectWallet, address, chainId } = useWeb3();
+  const chainId = useChainId();
   const [menuOpen, setMenuOpen] = useState(false);
   const { switchNetwork } = useNetwork();
   const connectMetaMask = useMetamask();
