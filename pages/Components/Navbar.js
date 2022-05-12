@@ -4,25 +4,20 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
 // import thirdweb
-import { useWeb3, useSwitchNetwork } from '@3rdweb/hooks';
 import { useAddressContext } from '../../context/addressContext';
+import { useMetamask, useAddress, useNetwork } from '@thirdweb-dev/react';
 const Navbar = () => {
-  const { connectWallet, address, chainId } = useWeb3();
-  const { handleAddress } = useAddressContext();
+  // const { connectWallet, address, chainId } = useWeb3();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { switchNetwork } = useSwitchNetwork();
+  const { switchNetwork } = useNetwork();
+  const connectMetaMask = useMetamask();
+  const address = useAddress();
   function menuSwitch() {
     menuOpen ? setMenuOpen(false) : setMenuOpen(true);
   }
   function closeMenu() {
     menuOpen ? menuSwitch : null;
   }
-  const checkWallet = () => {
-    connectWallet('injected');
-    if (address) {
-      handleAddress(address);
-    }
-  };
 
   useEffect(() => {
     console.log(address);
@@ -65,7 +60,7 @@ const Navbar = () => {
           {!address ? (
             <button
               className="border-2 border-solid px-2 py-1 rounded-md  font-bold hover:bg-white hover:text-purple"
-              onClick={() => checkWallet()}
+              onClick={connectMetaMask}
             >
               Connect
             </button>
@@ -126,7 +121,7 @@ const Navbar = () => {
               {!address ? (
                 <button
                   className="border-2 border-solid px-2 py-1 rounded-md  font-bold hover:bg-white hover:text-purple"
-                  onClick={() => checkWallet()}
+                  onClick={connectMetaMask}
                 >
                   Connect
                 </button>
