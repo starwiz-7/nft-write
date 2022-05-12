@@ -90,7 +90,7 @@ export default function Editor() {
   };
   return (
     <>
-      <div className="flex flex-row flex-wrap items-center justify-center w-full gap-8 px-8 my-6 bg-black rounded-lg p-5">
+      <div className="flex flex-row flex-wrap items-center justify-center w-full gap-8 px-8 my-6 bg-white rounded-lg p-5">
         <table
           id="pixel_canvas"
           style={{ backgroundColor: background }}
@@ -132,6 +132,7 @@ export default function Editor() {
                 border: '1px solid #915bff',
                 color: 'white',
               }}
+              color={"white"}
               display="inline-flex"
               alignItems="center"
               justifyContent="center"
@@ -155,6 +156,7 @@ export default function Editor() {
                 border: '1px solid #915bff',
                 color: 'white',
               }}
+              color={"white"}
               isLoading={loading}
               display="inline-flex"
               alignItems="center"

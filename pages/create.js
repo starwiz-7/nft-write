@@ -6,7 +6,7 @@ import Head from 'next/head';
 
 export default function Create() {
   return (
-    <div className="w-full h-screen bg-black">
+    <div className="w-full h-screen bg-white">
       <Head>
         <title>Create NFT</title>
       </Head>

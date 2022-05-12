@@ -43,10 +43,10 @@ export default function Home() {
             {props.icon}
           </Icon>
         </Flex>
-        <chakra.h3 mb={2} fontWeight="semibold" lineHeight="shorter" className="text-white">
+        <chakra.h3 mb={2} fontWeight="semibold" lineHeight="shorter" className="text-black">
           {props.title}
         </chakra.h3>
-        <chakra.p fontSize="sm" className="text-light-gray">
+        <chakra.p fontSize="sm" className="text-black">
           {props.children}
         </chakra.p>
       </Box>
@@ -54,7 +54,7 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full  bg-black flex flex-col">
+    <div className="w-full  bg-white flex flex-col">
       <Head>
         <title>NFT - Fair</title>
       </Head>
@@ -71,7 +71,7 @@ export default function Home() {
             fontWeight="bold"
             lineHeight="none"
             letterSpacing={{ base: 'normal', md: 'tight' }}
-            className="text-white"
+            className="text-black"
           >
             All your{' '}
             <Text
@@ -89,7 +89,7 @@ export default function Home() {
             px={{ base: 0, lg: 24 }}
             mb={6}
             fontSize={{ base: 'lg', md: 'xl' }}
-            className="text-white"
+            className="text-black"
           >
             Create, buy, sell, earn and even play with your pixelated NFTs. This is the one true
             stop for NFTs and pixel-art lovers.
@@ -114,6 +114,7 @@ export default function Home() {
                 display="inline-flex"
                 alignItems="center"
                 justifyContent="center"
+                color={"white"}
                 w={{ base: 'full', sm: 'auto' }}
                 mb={{ base: 2, sm: 0 }}
                 size="lg"
@@ -144,6 +145,7 @@ export default function Home() {
                 display="inline-flex"
                 alignItems="center"
                 justifyContent="center"
+                color={"white"}
                 w={{ base: 'full', sm: 'auto' }}
                 mb={{ base: 2, sm: 0 }}
                 size="lg"
@@ -178,7 +180,7 @@ export default function Home() {
           />
         </Box>
       </Box>
-      <Box px={8} py={20} mx="auto" shadow="xl" color={'white'}>
+      <Box px={8} py={20} mx="auto" shadow="xl" color={'black'}>
         <Box textAlign={{ lg: 'center' }} mb={12}>
           <chakra.p
             mt={2}
