@@ -1,32 +1,31 @@
 import { AiOutlineMenu, AiOutlineCloseCircle } from 'react-icons/ai';
 import { FaEthereum } from 'react-icons/fa';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
 // import thirdweb
-import { useWeb3, useSwitchNetwork } from '@3rdweb/hooks';
 import { useAddressContext } from '../../context/addressContext';
+import { useMetamask, useAddress, useNetwork, useChainId } from '@thirdweb-dev/react';
 const Navbar = () => {
-  const { connectWallet, address, chainId } = useWeb3();
-  const { handleAddress } = useAddressContext();
+  const chainId = useChainId();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { switchNetwork } = useSwitchNetwork();
+  const { switchNetwork } = useNetwork();
+  const connectMetaMask = useMetamask();
+  const address = useAddress();
   function menuSwitch() {
     menuOpen ? setMenuOpen(false) : setMenuOpen(true);
   }
   function closeMenu() {
     menuOpen ? menuSwitch : null;
   }
-  const checkWallet = () => {
-    connectWallet('injected');
-    if (address) {
-      handleAddress(address);
-    }
-  };
+
+  useEffect(() => {
+    console.log(address);
+  }, []);
 
   return (
     <div
-      className="sticky top-0  px-5 py-3 font-semibold z-50 bg-black text-white text-base"
+      className="sticky top-0  px-5 py-3 font-semibold z-50 bg-white text-black text-base border-2 drop-shadow-md rounded-b-md"
       onClick={closeMenu}
     >
       {/* Full navbar  */}
@@ -37,15 +36,15 @@ const Navbar = () => {
             <div className="logo cursor-pointer"></div>
           </Link>
           {/* menu */}
-          <ul className="flex justify-between space-x-4 text-light-gray ml-5">
+          <ul className="flex justify-between space-x-4 text-black ml-5">
             <Link href="/marketplace" passHref>
-              <li className="hover:text-white cursor-pointer">Marketplace</li>
+              <li className="hover:text-purple cursor-pointer">Marketplace</li>
             </Link>
-            <Link href="/games" passHref>
-              <li className="hover:text-white cursor-pointer">Games</li>
-            </Link>
+            {/* <Link href="/games" passHref>
+              <li className="hover:text-purple cursor-pointer">Games</li>
+            </Link> */}
             <Link href="/explore" passHref>
-              <li className="hover:text-white cursor-pointer">Explore</li>
+              <li className="hover:text-purple cursor-pointer">Explore</li>
             </Link>
           </ul>
         </div>
@@ -54,14 +53,14 @@ const Navbar = () => {
         <div className="space-x-2 flex">
           {/* search  */}
           <Link href="/create" passHref>
-            <button className="border-2 border-solid border-purple px-2 py-1 rounded-md font-bold bg-purple hover:bg-black">
+            <button className="border-2 border-solid border-purple text-white hover:text-black px-2 py-1 rounded-md font-bold bg-purple hover:bg-white">
               Create
             </button>
           </Link>
           {!address ? (
             <button
               className="border-2 border-solid px-2 py-1 rounded-md  font-bold hover:bg-white hover:text-purple"
-              onClick={() => checkWallet()}
+              onClick={connectMetaMask}
             >
               Connect
             </button>
@@ -83,7 +82,7 @@ const Navbar = () => {
         </div>
       </div>
       {/* Mobile view navbar */}
-      <div className="md:hidden flex justify-between items-center bg-black">
+      <div className="md:hidden flex justify-between items-center bg-white">
         <Link href="/" passHref>
           <div className="logo cursor-pointer"></div>
         </Link>
@@ -114,7 +113,7 @@ const Navbar = () => {
               </Link>
 
               <Link href="/create" passHref>
-                <button className="m-auto border-2 border-solid border-purple px-2 py-1 rounded-md font-bold bg-purple hover:bg-black">
+                <button className="m-auto border-2 border-solid border-purple px-2 py-1 rounded-md font-bold bg-purple hover:bg-white">
                   Create
                 </button>
               </Link>
@@ -122,7 +121,7 @@ const Navbar = () => {
               {!address ? (
                 <button
                   className="border-2 border-solid px-2 py-1 rounded-md  font-bold hover:bg-white hover:text-purple"
-                  onClick={() => checkWallet()}
+                  onClick={connectMetaMask}
                 >
                   Connect
                 </button>

@@ -3,16 +3,23 @@ import { Spinner, useToast } from '@chakra-ui/react';
 import ItemTile from './Components/ItemTile';
 import Navbar from './Components/Navbar';
 import ProfileCard from './Components/ProfileCard';
-import { useWeb3 } from '@3rdweb/hooks';
+import CollectionList from './Components/CollectionList';
 import Head from 'next/head';
 import Footer from './Components/Footer';
+import api from '../lib/appwrite';
+import { useMetamask, useAddress, useNetwork } from '@thirdweb-dev/react';
+
 export default function Profile() {
-  const { address } = useWeb3();
   const [loading, setLoading] = useState(true);
   const [nfts, setNFTs] = useState([]);
   const toast = useToast();
+  const address = useAddress();
+
   useEffect(() => {
     getMyNFT(address);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
   }, []);
 
   const getMyNFT = async (address) => {
@@ -41,28 +48,28 @@ export default function Profile() {
         <Navbar />
 
         {loading ? (
-          <div className="text-white w-full min-h-screen flex items-center justify-center bg-black">
-          <div className="flex flex-col items-center justify-center">
-            <div className="flex items-center justify-center">
-              <Spinner className="m-2 text-light-purple" />
-              <p>{`Fetching NFT's...   `}</p>
+          <div className="text-black w-full min-h-screen flex items-center justify-center bg-white">
+            <div className="flex flex-col items-center justify-center">
+              <div className="flex items-center justify-center">
+                <Spinner className="m-2 text-light-purple" />
+                <p>{`Fetching NFT's...   `}</p>
+              </div>
+              <p className="text-xs">Freshly minted/bought NFTs may take longer to appear</p>
             </div>
-            <p className="text-xs">Freshly minted/bought NFTs may take longer to appear</p>
           </div>
-        </div>
         ) : (
-          <div className=" flex flex-col w-full min-h-screen bg-black">
+          <div className=" flex flex-col w-full min-h-screen bg-white">
             <div className="cover w-full h-44 bg-repeat bg-cover bg-center overflow-hidden bg-[url('https://wallpaperaccess.com/full/4785394.jpg')]"></div>
             <div className="w-full md:flex justify-between">
               <div className="w-full h-max max-w-md mx-auto md:w-4/12 p-5 -translate-y-28 ">
                 <ProfileCard address={address} />
               </div>
               <div className="w-full md:w-8/12 p-5 space-y-3 -translate-y-28 md:-translate-y-0">
-                <p className="text-white">My collection</p>
+                <p className="text-black">My collection</p>
 
-                <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {nfts.length !== 0 ? (
-                    nfts.map((nft) => (
+                {/* {nfts.length !== 0 ? (
+                  <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    {nfts.map((nft) => (
                       <ItemTile
                         key={nft.id}
                         id={nft.id}
@@ -70,15 +77,16 @@ export default function Profile() {
                         name={nft.name}
                         profile={true}
                       />
-                    ))
-                  ) : (
-                    <div className="w-full">
-                      <p className="text-2xl items-center text-center text-white w-full ">
-                        No NFT found in your collection
-                      </p>
-                    </div>
-                  )}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="w-full">
+                    <p className="text-2xl items-center text-center text-black w-full ">
+                      No NFT found in your collection
+                    </p>
+                  </div>
+                )} */}
+                <CollectionList />
               </div>
             </div>
           </div>

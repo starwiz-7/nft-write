@@ -121,7 +121,7 @@ const Wrong_side = () => {
   }
 
   return (
-    <div className="w-full bg-black">
+    <div className="w-full bg-white">
       <Head>
         <title>Wrong-Side Game</title>
       </Head>

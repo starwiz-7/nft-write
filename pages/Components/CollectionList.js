@@ -2,26 +2,29 @@ import React from 'react';
 import ItemTile from './ItemTile';
 import { useState, useEffect } from 'react';
 import { Spinner } from '@chakra-ui/react';
+import { useMarketplace } from '@thirdweb-dev/react';
 // Add a loader here
 const ItemTileList = () => {
   const [nfts, setNfts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const marketplace = useMarketplace('0x1b741227186B2d2a7D2238E5fd5A701a55FDc5B1');
   var key = 0;
 
   useEffect(() => {
     getListings();
+    setTimeout(()=>{
+      setLoading(false);
+    },3000)
   }, []);
   const getListings = async () => {
-    const listing = await fetch('/api/market', {
-      method: 'GET',
-    });
-    const data = await listing.json();
-    setNfts(data);
+    const listing = await marketplace.getAll();
+    console.log(listing);
+    setNfts(listing);
     setLoading(false);
   };
 
   return loading ? (
-    <div className="text-white w-full min-h-screen flex items-center justify-center bg-black">
+    <div className="text-black w-full min-h-screen flex items-center justify-center bg-white">
       <div className="flex flex-col items-center justify-center">
         <div className="flex items-center justify-center">
           <Spinner className="m-2 text-light-purple" />
@@ -31,8 +34,8 @@ const ItemTileList = () => {
       </div>
     </div>
   ) : (
-    <div className="w-full min-h-screen text-light-gray text-xs">
-      <p className="text-2xl font-bold text-light-purple">Explore user-made NFTs</p>
+    <div className="w-full min-h-screen text-black text-xs">
+      <p className="text-2xl font-bold text-black">Explore user-made NFTs</p>
 
       <hr className="my-2" />
       {/* list of nft */}
@@ -48,10 +51,10 @@ const ItemTileList = () => {
               profile={true}
             />
           );
-      })}
+        })}
       </div>
       {nfts.length === 0 ? (
-        <p className="text-white text-3xl text-center mt-10">{`No NFT in marketplace :(`}</p>
+        <p className="text-black text-3xl text-center mt-10">{`No NFT in marketplace :(`}</p>
       ) : (
         <></>
       )}

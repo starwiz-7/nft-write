@@ -4,7 +4,7 @@ import Navbar from './Components/Navbar';
 import Head from 'next/head';
 const marketplace = () => {
   return (
-    <div className="w-full h-full bg-black flex-col">
+    <div className="w-full h-full bg-white flex-col">
       <Head>
         <title>Marketplace</title>
       </Head>
