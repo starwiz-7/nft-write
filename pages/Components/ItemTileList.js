@@ -2,21 +2,24 @@ import React from 'react';
 import ItemTile from './ItemTile';
 import { useState, useEffect } from 'react';
 import { Spinner } from '@chakra-ui/react';
+import { useMarketplace } from '@thirdweb-dev/react';
 // Add a loader here
 const ItemTileList = () => {
   const [nfts, setNfts] = useState([]);
   const [loading, setLoading] = useState(true);
   var key = 0;
-
+  const marketplace = useMarketplace('0x1b741227186B2d2a7D2238E5fd5A701a55FDc5B1');
   useEffect(() => {
     getListings();
   }, []);
   const getListings = async () => {
-    const listing = await fetch('/api/market', {
-      method: 'GET',
-    });
-    const data = await listing.json();
-    setNfts(data);
+    const listing = await marketplace.getAll();
+    // const listing = await fetch('/api/market', {
+    //   method: 'GET',
+    // });
+    console.log(listing);
+    // const data = await listing.json();
+    setNfts(listing);
     setLoading(false);
   };
 
@@ -38,18 +41,21 @@ const ItemTileList = () => {
       {/* list of nft */}
       <div className="grid gap-4 p-2  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center ">
         {nfts.map((nft) => {
-          
-          if(nft.quantity.hex !== '0x00' && parseInt(nft.secondsUntilEnd.hex, 16) > Math.floor(Date.now()/1000)){
-          return (
-            <ItemTile
-              key={key++}
-              image={nft.asset.image}
-              name={nft.asset.name}
-              id={nft.id}
-              price={nft.buyoutCurrencyValuePerToken.displayValue}
-            />
-          );
-      }})}
+          if (
+            nft.quantity.hex !== '0x00' &&
+            parseInt(nft.secondsUntilEnd.hex, 16) > Math.floor(Date.now() / 1000)
+          ) {
+            return (
+              <ItemTile
+                key={key++}
+                image={nft.asset.image}
+                name={nft.asset.name}
+                id={nft.id}
+                price={nft.buyoutCurrencyValuePerToken.displayValue}
+              />
+            );
+          }
+        })}
       </div>
       {nfts.length === 0 ? (
         <p className="text-white text-3xl text-center mt-10">{`No NFT in marketplace :(`}</p>
